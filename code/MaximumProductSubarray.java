@@ -12,40 +12,15 @@ package code;
 public class MaximumProductSubarray {
 
     public int maxProduct(int[] A) {
-        if (A.length == 1) {
-            return A[0];
-        }
-        int positiveMax =A[0];
-        int negativeMax =Integer.MIN_VALUE;
-        int result=1;
-
-        for (int i =0; i< A.length; i++) {
-            if (A[i]!=0) {
-                result = result * A[i];
-                if (result > 0) {
-                    positiveMax = positiveMax>result?positiveMax:result;
-                }  else {
-                    negativeMax = negativeMax<result?negativeMax:result;
-                    result = 1;
-                }
-            } else {
-                result = 1;
-                positiveMax = positiveMax>A[i]?positiveMax:A[i];
-            }
-        }
-        return positiveMax;
-    }
-
-
-    public int maxProduct2(int[] A) {
         if (A.length == 0) {
             return 0;
         }
 
         int maxherepre = A[0];
         int minherepre = A[0];
-        int maxsofar = A[0];
         int maxhere, minhere;
+
+        int maxsofar = A[0];
 
         for (int i = 1; i < A.length; i++) {
             maxhere = Math.max(Math.max(maxherepre * A[i], minherepre * A[i]), A[i]);
@@ -57,10 +32,45 @@ public class MaximumProductSubarray {
         return maxsofar;
     }
 
+
+    public int maxProduct3(int[] A) {
+        int max = Integer.MIN_VALUE;
+        int current = 1;
+
+        for (int n : A) {
+            current = current * n;
+            max = Math.max(max, current);
+            if (current ==0) {
+                current =1;
+            }
+        }
+        return max;
+    }
+
+    public int maxProduct2(int[] A) {
+        int maxpre = A[0];
+        int minpre = A[0];
+
+        int max = Integer.MIN_VALUE;
+        int min = Integer.MAX_VALUE;
+
+        int result = A[0];
+
+        for (int i=1; i<A.length; i++) {
+            max = Math.max(Math.max(maxpre * A[i], minpre*A[i]), A[i]);
+            min = Math.min(Math.min(maxpre * A[i], minpre * A[i]), A[i]);
+            result = Math.max(max, result);
+            maxpre = max;
+            minpre = min;
+        }
+        return result;
+
+    }
+
     public static void main(String[]args) {
         MaximumProductSubarray maximumProductSubarray = new MaximumProductSubarray();
         int[]A = {3,0,4};
-        System.out.println(maximumProductSubarray.maxProduct2(A));
+        System.out.println(maximumProductSubarray.maxProduct(A));
 
     }
 }

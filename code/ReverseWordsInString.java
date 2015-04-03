@@ -9,7 +9,7 @@ import java.util.Stack;
 public class ReverseWordsInString {
     public static void main(String[] args) {
         ReverseWordsInString r = new ReverseWordsInString();
-        System.out.println(r.reverseWords("the sky is blue"));
+        System.out.println(r.reverseWords("the sky   is blue"));
 
     }
 
@@ -20,7 +20,9 @@ public class ReverseWordsInString {
         String[] words = s.split(" ");
         StringBuilder sb = new StringBuilder();
         for (int i = (words.length - 1); i >= 0; i--) {
-            sb.append(words[i] + " ");
+            if (words[i].length()!=0) {
+                sb.append(words[i] + " ");
+            }
 
         }
         return sb.length() == 0 ? "" : sb.toString().substring(0, sb.length() - 1);
