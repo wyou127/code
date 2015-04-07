@@ -1,5 +1,6 @@
 package code;
 
+import java.util.ArrayDeque;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -41,4 +42,28 @@ public class SumRootToLeafNumbers {
             return subNumbers(root.left, prev) + subNumbers(root.right,prev);
         }
     }
+
+
+    public int sumNumbers2(TreeNode root) {
+
+        if(root==null) return 0;
+        int sum = 0;
+        ArrayDeque<TreeNode> stack = new ArrayDeque<TreeNode>();
+        stack.push(root);
+        while(!stack.isEmpty()) {
+            TreeNode node = stack.pop();
+            if(node.left!=null) {
+                node.left.val += 10*node.val;
+                stack.push(node.left);
+            }
+            if(node.right!=null) {
+                node.right.val += 10*node.val;
+                stack.push(node.right);
+            }
+            if(node.left==null && node.right==null) sum+=node.val;
+        }
+        stack.push(root);
+        return sum;
+    }
+
 }
